@@ -23,6 +23,10 @@ class FIFOMemoryManager extends MemoryManager
    public int handlePageFault(PCB process)
    {
       // @TODO
+
+      p_pageFaults++;            // keep track of the number of page faults
+      printPageFault(process);   // everytime a page fault occurs, print out to System.out
+
       return 0;
 
    } // handlePageFault
@@ -40,6 +44,8 @@ class FIFOMemoryManager extends MemoryManager
    public void touchPage(int pageNum)
    {
       // @TODO
+
+      p_memoryReferences++;
    } // touchPage 
 
 

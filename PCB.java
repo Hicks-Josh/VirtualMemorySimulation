@@ -59,7 +59,7 @@ public class PCB
     * Tells the page-table to mark a page as invalid
     *
     * @param page the physical page that is no longer valid
-    * @returns boolean indicating whether the page is dirty or not
+    * @return boolean indicating whether the page is dirty or not
     */
    public boolean invalidatePage(int page)
    {
@@ -101,7 +101,7 @@ public class PCB
       /**
        * Create a new PageTable
        *
-       * @param myProc a reference back to the PCB that holds this
+       * @param myProcess a reference back to the PCB that holds this
        * PageTable
        */
       public PageTable(PCB myProcess)
@@ -168,7 +168,7 @@ public class PCB
        * marks that logical page as invalid
        *
        * @param page the physical page that is no longer valid
-       * @returns boolean true if the page invalidated is p_dirty
+       * @return boolean true if the page invalidated is p_dirty
        * 
        */
       public boolean invalidatePage(int page)
@@ -216,13 +216,13 @@ public class PCB
 
 
       // PageTable holds a memory map that maps logical pages to physical pages
-      private int p_logicalMap[] = new int[Simulation.NUM_VIRTUAL_PAGES];
+      private int[] p_logicalMap = new int[Simulation.NUM_VIRTUAL_PAGES];
 
       // PageTable keeps track of whether the mapping is valid or not
-      private boolean p_valid[] = new boolean[Simulation.NUM_VIRTUAL_PAGES];
+      private boolean[] p_valid = new boolean[Simulation.NUM_VIRTUAL_PAGES];
 
       // PageTable keeps track of whether the page is dirty or not
-      private boolean p_dirty[] = new boolean[Simulation.NUM_VIRTUAL_PAGES];
+      private boolean[] p_dirty = new boolean[Simulation.NUM_VIRTUAL_PAGES];
 
       // PageTable knows what process owns it
       private PCB p_myProcess;

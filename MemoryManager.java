@@ -1,3 +1,5 @@
+import java.util.stream.IntStream;
+
 /**
  *
  * Class MemoryManager manages the physical memory in my virtual
@@ -160,16 +162,39 @@ abstract class MemoryManager
    } // printStatistics
 
 
+   /**
+    * Prints out a message to `System.out` **everytime a *page fault* occurs**.
+    * Output should include the ID of the process that caused the page fault
+    * and the physical page number that was given to that process
+    * (e.g., `PAGE-FAULT: Process 3 given page 0`
+    *
+    * @param process the process that caused the page fault
+    */
+   public void printPageFault(PCB process) {
+      // @TODO what does he mean by System.out?
+
+      // grab the index of the process page location, if it fails, return -1
+      int page = IntStream.range(0, NUM_PHYSICAL_MEMORY_FRAMES)
+              .filter(i -> process == p_physicalMemory[i])
+              .findFirst()
+              .orElse(-1);
+
+      String toSystemOut = "PAGE-FAULT: Process " + process.getID() + " given page " + page;
+
+      System.out.println(toSystemOut);
+
+
+   } // printPageFault
 
 
    // I represent physical memory as an array of PCBs - the process
    // that owns that memory will be in that array slot. A null object
    // means the slot is currently free.
-   protected PCB p_physicalMemory[] = new PCB[NUM_PHYSICAL_MEMORY_FRAMES];
+   protected PCB[] p_physicalMemory = new PCB[NUM_PHYSICAL_MEMORY_FRAMES];
 
    // memCounter keeps track of a count for each memory frame. Its
    // meaning depends on the page-replacement algorithm being used
-   protected int p_memCounter[] = new int[NUM_PHYSICAL_MEMORY_FRAMES];
+   protected int[] p_memCounter = new int[NUM_PHYSICAL_MEMORY_FRAMES];
 
 
    // Two counters to track the number of page faults and total number

@@ -1,4 +1,4 @@
-#Virtual Memory Simulation Program
+# Virtual Memory Simulation Program
 
 Complete my Java program that simulates virtual memory management.  The input to my program is a simulated set of virtual memory addresses froma  number of simulated processes.  This space-delimited file contains one triple perline: `process ID, memory address, read/write flag.`  Process ID's and memory addresses are integers for convenience and the read/write flag is a 0 (read) or 1 (write).
 
@@ -37,6 +37,13 @@ Run the simulation twice, once with each page-replacement algorithm
 
 ## LRU implementation (stack)
 > Another approach to implementing `LRU` replacement is to keep a stack of page numbers.  Whenever a page is referenced, it is removed from the stack and put on the top.  In this way, the most recently used page is alwyas at the top of the stack and the least recently used page is always at the bottom (Figure 9.16).  Because entries must be removed from the middle of the stack, it is best to implement this approach by using a doubly linked list with a head pointer and a tail pointer.  Removing a page and putting it on top of the stack then requires changing six pointers at most.  Each update is a little more expensive, but there is no search for a replacement; the tail pointer points to the bottom of the stack, which is the `LRU` page.  This approach is particularly appropriate for software or microcode implmentations of the `LRU` replacement.
+
+### tl;dr
+* keep track of when a page is used.
+* replace the page that has been used least recently
+* keep a linked list of all pages
+* on every memory reference, move that page to the front of the list
+* the page at the tail of the list is replaced
 
 | 7 	| 0 	| 1 	| 2 	| 0    	| 3 	| 0    	| 4 	| 2 	| 3 	| 0 	| 3    	| 2 	| 2 	| 0 	|
 |---	|---	|---	|---	|------	|---	|------	|---	|---	|---	|---	|------	|---	|---	|---	|
