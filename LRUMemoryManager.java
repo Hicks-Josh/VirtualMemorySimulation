@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 /**
  *
  * Class LRUMemoryManager manages the physical memory in my virtual
@@ -12,6 +15,16 @@
 class LRUMemoryManager extends MemoryManager
 {
 
+   // @TODO document, the p_physical memory represents hte columns in the readme
+   public LRUMemoryManager() {
+      super();
+      _pcbStack = new LinkedList<>();
+      for (int i = 0; i < NUM_PHYSICAL_MEMORY_FRAMES; i++) {
+         _pcbStack.add(null);
+      }
+      _head = _pcbStack.getFirst(); // @TODO necessary?
+      _tail = _pcbStack.getLast();
+   }
 
    /**
     * Finds a physical memory page to give to the requesting process.
@@ -49,10 +62,19 @@ class LRUMemoryManager extends MemoryManager
       We get a physical page number translated from the logical address
       by the page-table, then it's told whether it's a read or write so it can
       remember, then it asks us to touch that page
+
+      Everytime we add to the physical memory we need choose what to overwrite
+      in the case of a page fault, and if not, just add it, and adjust the stack
        */
+
+
 
       p_memoryReferences++; // keep track of the number of page references
 
    } // touchPage
 
-} // LRUMemoryManager 
+   LinkedList<PCB> _pcbStack;
+   PCB _head;
+   PCB _tail;
+
+} // LRUMemoryManager

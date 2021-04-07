@@ -56,3 +56,10 @@ Run the simulation twice, once with each page-replacement algorithm
 Page hit = 3
 Page fault = 12
 Hit rate = 1/4
+
+---
+
+I guess I'm a little confused with how the read/write flag works
+How does the logical address work in this situation?
+
+So the way that I understand this, the simulation calls free page which for the LRU will make it remove the item from the stack, and the touch page method will be the algorithm that searches for the place to put the process, but if that causes a page fault then we call handle page fault in which we just print the page fault?

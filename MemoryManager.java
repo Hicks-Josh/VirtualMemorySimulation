@@ -64,6 +64,7 @@ abstract class MemoryManager
             p_memCounter[i] = 0;
          }
       }
+      // @TODO remove it from the linked list in the LRU
 
    } // freePages 
 
@@ -135,7 +136,7 @@ abstract class MemoryManager
     * total number of memory references, page faults, and the page
     * fault ratio.
     */
-   public void printStatistics()
+   protected void printStatistics()
    {
       // Iterate over the physical memory and see if the page is
       // free or owned by some process
