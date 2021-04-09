@@ -1,3 +1,5 @@
+import java.util.stream.IntStream;
+
 /**
  *
  * Class MemoryManager manages the physical memory in my virtual
@@ -79,7 +81,7 @@ abstract class MemoryManager
       int victim = findVictim();
 
       // if there was something in it originally, invalidate then update counter
-      if(p_physicalMemory[victim] != null) {
+      if (p_physicalMemory[victim] != null) {
          p_physicalMemory[victim].invalidatePage(victim);
          p_memCounter[victim] = 0;
       }
@@ -88,9 +90,7 @@ abstract class MemoryManager
       p_physicalMemory[victim] = process;
 
       // increment the counter
-      for (int i = 0; i < NUM_PHYSICAL_MEMORY_FRAMES; i++) {
-         p_memCounter[i]++;
-      }
+      IntStream.range(0, p_memCounter.length).forEach(i -> p_memCounter[i]++);
 
       printPageFault(process, victim);
       p_pageFaults++;
@@ -190,14 +190,7 @@ abstract class MemoryManager
     *
     * @param process the process that caused the page fault
     */
-   public void printPageFault(PCB process, int pageNum) {
-
-      String toSystemOut = "PAGE-FAULT: Process " + process.getID() + " given page " + pageNum;
-
-      System.out.println(toSystemOut);
-
-
-   } // printPageFault
+   public void printPageFault(PCB process, int pageNum) { System.out.println("PAGE-FAULT: Process " + process.getID() + " given page " + pageNum); } // printPageFault
 
 
    // I represent physical memory as an array of PCBs - the process

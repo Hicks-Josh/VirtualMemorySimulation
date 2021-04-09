@@ -18,11 +18,7 @@ class LRUMemoryManager extends MemoryManager
     *
     * @param pageNum the physical page being referenced
     */
-   public void touchPage(int pageNum)
-   {
-      super.touchPage(pageNum);
-      p_memCounter[pageNum] = 0;
-   } // touchPage
+   public void touchPage(int pageNum) { super.touchPage(pageNum); p_memCounter[pageNum] = 0; } // touchPage
 
 
 } // LRUMemoryManager

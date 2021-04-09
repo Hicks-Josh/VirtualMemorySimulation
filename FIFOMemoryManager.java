@@ -11,5 +11,5 @@
 
 class FIFOMemoryManager extends MemoryManager
 {
-   // kinda lonely in here... 😢
+   // kinda lonely in here... :(
 } // FIFOMemoryManager
