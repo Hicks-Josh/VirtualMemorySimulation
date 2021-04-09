@@ -19,25 +19,26 @@ public class Simulation
    // Constants defining how big pages are and how many virtual pages we allow. 
    // These constants are used by other classes who need to know the 
    // constraints of the simulation
-   public static final int NUM_VIRTUAL_PAGES = 128;  // 128 virtual pages
-   public static final int PAGE_SIZE = 32;           // 32 bytes per page
+   // 2^(4096/256) = 2^16 = 256
+   public static final int NUM_VIRTUAL_PAGES = 256;  // 256 virtual pages
+   public static final int PAGE_SIZE = 16;           // 16 bytes per page
 
 
    /**
      * The main body of the simulation. Opens and reads a file of
      * memory addresses and simulates virtual memory references.
      *
-     * @param args[] array of arguments - args[0] is the name of of the
+     * @param args array of arguments - args[0] is the name of of the
      * input file. Optional args[1] indicates the replacement algorithm to use, 
      * the default is FIFO unless "LRU" is given
      */
-   public static void main(String args[]) throws IOException
+   public static void main(String[] args) throws IOException
    {
       // An address that is used to signal the end of a process
       final int END_OF_PROCESS = -1;
 
       // At runtime we'll figure out what sort of MemoryManager to use -
-      // we have different sublcasses with different replacement mechanisms
+      // we have different subclasses with different replacement mechanisms
       MemoryManager memoryManager;
 
       // Initialize the HashMap we'll use to store and look up PCB 

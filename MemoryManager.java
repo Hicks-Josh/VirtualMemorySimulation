@@ -1,5 +1,3 @@
-import java.util.stream.IntStream;
-
 /**
  *
  * Class MemoryManager manages the physical memory in my virtual
@@ -15,7 +13,7 @@ abstract class MemoryManager
 {
   
    // Class-wide constant defining how many physical pages we have 
-   static protected final int NUM_PHYSICAL_MEMORY_FRAMES = 5;
+   static protected final int NUM_PHYSICAL_MEMORY_FRAMES = 4;
 
 
    public MemoryManager()
@@ -64,7 +62,6 @@ abstract class MemoryManager
             p_memCounter[i] = 0;
          }
       }
-      // @TODO remove it from the linked list in the LRU
 
    } // freePages 
 
@@ -75,9 +72,31 @@ abstract class MemoryManager
     * We also keep track of the number of page faults.
     *
     * @param process the PCB requesting a page of memory
-    * @return the number of the physical page replaced
+    * @return an int that is the number of the physical page replaced
     */
-   public abstract int handlePageFault(PCB process);
+   public int handlePageFault(PCB process)
+   {
+      int victim = findVictim();
+
+      // if there was something in it originally, invalidate then update counter
+      if(p_physicalMemory[victim] != null) {
+         p_physicalMemory[victim].invalidatePage(victim);
+         p_memCounter[victim] = 0;
+      }
+
+      // overwrite with new process
+      p_physicalMemory[victim] = process;
+
+      // increment the counter
+      for (int i = 0; i < NUM_PHYSICAL_MEMORY_FRAMES; i++) {
+         p_memCounter[i]++;
+      }
+
+      printPageFault(process, victim);
+      p_pageFaults++;
+
+      return victim;
+   } // handlePageFault
 
 
    /**
@@ -87,7 +106,7 @@ abstract class MemoryManager
     *
     * @param pageNum the physical page being referenced
     */
-   public abstract void touchPage(int pageNum);
+   public void touchPage(int pageNum) { p_memoryReferences++; }
 
 
    /**
@@ -171,16 +190,9 @@ abstract class MemoryManager
     *
     * @param process the process that caused the page fault
     */
-   public void printPageFault(PCB process) {
-      // @TODO what does he mean by System.out?
+   public void printPageFault(PCB process, int pageNum) {
 
-      // grab the index of the process page location, if it fails, return -1
-      int page = IntStream.range(0, NUM_PHYSICAL_MEMORY_FRAMES)
-              .filter(i -> process == p_physicalMemory[i])
-              .findFirst()
-              .orElse(-1);
-
-      String toSystemOut = "PAGE-FAULT: Process " + process.getID() + " given page " + page;
+      String toSystemOut = "PAGE-FAULT: Process " + process.getID() + " given page " + pageNum;
 
       System.out.println(toSystemOut);
 

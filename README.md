@@ -63,3 +63,10 @@ I guess I'm a little confused with how the read/write flag works
 How does the logical address work in this situation?
 
 So the way that I understand this, the simulation calls free page which for the LRU will make it remove the item from the stack, and the touch page method will be the algorithm that searches for the place to put the process, but if that causes a page fault then we call handle page fault in which we just print the page fault?
+
+For some reason my datastructures are empty whenever they are called, its because it will always call `handlePageFault()` first which then gets rid of whatever is in there for some reason
+
+we use invalidate page and find victim
+
+fifo 37%
+lru 35%
