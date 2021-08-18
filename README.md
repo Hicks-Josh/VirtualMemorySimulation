@@ -1,6 +1,6 @@
 # Virtual Memory Simulation Program
 
-Complete my Java program that simulates virtual memory management.  The input to my program is a simulated set of virtual memory addresses froma  number of simulated processes.  This space-delimited file contains one triple perline: `process ID, memory address, read/write flag.`  Process ID's and memory addresses are integers for convenience and the read/write flag is a 0 (read) or 1 (write).
+Complete my Java program that simulates virtual memory management.  The input to my program is a simulated set of virtual memory addresses from a  number of simulated processes.  This space-delimited file contains one triple per line: `process ID`, `memory address`, `read/write flag`.  Process ID's and memory addresses are integers for convenience and the read/write flag is a 0 (read) or 1 (write).
 
 The program currently assumes the following:
 * Processes will only generate legal addresses
@@ -10,7 +10,7 @@ The program currently assumes the following:
 * We use a page size of 32 bytes (thus our address-space is composed of 128 pages meaning that our 12-bit address is composed of a 7-bit page number + a 5-bit offset)
 * We have a 5 physical memory page frames (a total of 160 bytes)
 
-In addition, processes may come and go during the simulation.  New processes appear in the input without warning and are added to the simulation dynamically.  Processes leave the siumulation by generating a negatice memory address (which does **not** show up in any output); process numbers might be reused. 
+In addition, processes may come and go during the simulation.  New processes appear in the input without warning and are added to the simulation dynamically.  Processes leave the siumulation by generating a negative memory address (which does **not** show up in any output); process numbers might be reused. 
 
 ## Task
 1. Complete this simulation by implementing subclasses of the `MemoryManager` class: `LRUMemoryManager.java` and `FIFOMemoryManager.java`; you may need to make minor modifications to the state of the `MemoryManager` class as well.
